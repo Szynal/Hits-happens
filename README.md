@@ -1,7 +1,5 @@
 # Hits-happens
 
-Android tap tap games :)
-
 Hit, destroy, smash, demolish, are the main goals of our game. Show your finesse by destroying everything that stands in your way. Buy, collect and put together to become even better in what you love.
 
 
