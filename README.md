@@ -5,11 +5,11 @@ Hit, destroy, smash, demolish, are the main goals of our game. Show your finesse
 
 ## Authors
 
-* **Pawel Szynal** - ** - [Szynal](https://github.com/Szynal)
-* **Krzysztof Sobociśnki** - **
-* **Krzysztof Adamin** - **
+* **Pawel Szynal** - [Szynal](https://github.com/Szynal)
+* **Krzysztof Sobociśnki** -
+* **Krzysztof Adamin** -
 
-See also the list of [contributors](https://github.com/Szynal/Hits-happens/graphs/contributors) who participated in this project.
+[contributors](https://github.com/Szynal/Hits-happens/graphs/contributors) who participated in this project.
 
 ## License
 
