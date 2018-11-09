@@ -88,21 +88,46 @@ namespace Scripts.DestructibleObject
                 {
                     if (Action != null)
                     {
-                        Action.Performed = false;
+                        Action.Executed = false;
                     }
                 }
             }
 
         }
 
+        /// <summary>
+        /// Types of actions performed when the object is destroyed
+        /// </summary>
+        public enum ActionType { None, Remove }
+
         [Serializable]
         public class Action : ICloneable
         {
-            public bool Performed { get; internal set; }
+            public bool Executed { get; internal set; }
+
+            public ActionType ActionType = ActionType.None;
+            public GameObject TargetObject = null;
+            public float ExecutionDelay;
+
+            /// <summary>  Time of the action being performed  </summary>
+            public float ExecutionTime;
+
+            public float DestructionLevel;
+
+            public Action()
+            {
+                DestructionLevel = 1f;
+            }
+
+
 
             public object Clone()
             {
-                throw new NotImplementedException();
+                Action action = (Action)MemberwiseClone();
+
+                //      action.ExecutionDelay = (float)ExecutionDelay.Clone();
+                //      action.ExecutionTime = ExecutionTime.Clone();
+                return action;
             }
         }
     }
