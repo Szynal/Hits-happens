@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Core;
 using UnityEngine;
 
 namespace Scripts.DestructibleObject
@@ -21,7 +22,7 @@ namespace Scripts.DestructibleObject
         public float TotalDestructionPercentage = 1f;
         public bool Destroyed;
 
-        [SerializeField] public float DestructionLevel = 0f;
+        [SerializeField] public float TotalDestructionLevel = 0f;
 
         public float LocalDestructionLevel;
 
@@ -45,33 +46,31 @@ namespace Scripts.DestructibleObject
                 DestructionLevel = 0f;
             }
 
-            public float ApplyDestruction(float energy, float resistance)
+            public float ApplyDestruction(float energy, float damageMultiplier)
             {
-                float objectDestructionAmount = 0f;
-
                 if (!Destroyed)
                 {
-                    if (energy >= MinEnergy)
-                    {
-                        float maxEnergyWithResistance = MaxEnergy * resistance;
+                    float maxEnergyWithMutliplier = energy * damageMultiplier;
 
-                        if (energy > maxEnergyWithResistance)
+                    if (maxEnergyWithMutliplier >= MinEnergy)
+                    {
+                        if (maxEnergyWithMutliplier > MaxEnergy)
                         {
-                            energy = maxEnergyWithResistance;
+                            maxEnergyWithMutliplier = MaxEnergy;
                         }
 
-                        float destructionAmount = Mathf.Clamp(energy / maxEnergyWithResistance, 0f, 1f - DestructionLevel);
+                        float destructionAmount = Mathf.Clamp(maxEnergyWithMutliplier/MaxEnergy, 0f, 1f - DestructionLevel);
                         DestructionLevel += destructionAmount;
-                        if (DestructionLevel == 1f)
+                        if (DestructionLevel >= 1f)
                         {
                             Destroyed = true;
                         }
 
-                        objectDestructionAmount = destructionAmount * MaxObjectDestructionAmount;
+                        return destructionAmount * MaxObjectDestructionAmount;
                     }
                 }
 
-                return objectDestructionAmount;
+                return 0f;
             }
 
             public void Destroy()
@@ -107,10 +106,10 @@ namespace Scripts.DestructibleObject
 
             public ActionType ActionType = ActionType.None;
             public GameObject TargetObject = null;
-            public float ExecutionDelay;
+            public NumberFloat ExecutionDelay;
 
             /// <summary>  Time of the action being performed  </summary>
-            public float ExecutionTime;
+            public NumberFloat ExecutionTime;
 
             public float DestructionLevel;
 
@@ -125,8 +124,8 @@ namespace Scripts.DestructibleObject
             {
                 Action action = (Action)MemberwiseClone();
 
-                //      action.ExecutionDelay = (float)ExecutionDelay.Clone();
-                //      action.ExecutionTime = ExecutionTime.Clone();
+                      action.ExecutionDelay = (NumberFloat)ExecutionDelay.Clone();
+                      action.ExecutionTime = (NumberFloat)ExecutionTime.Clone();
                 return action;
             }
         }
